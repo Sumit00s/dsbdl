@@ -1,0 +1,60 @@
+9) Data Visualization II
+1. Use the inbuilt dataset 'titanic' as used in the above problem. Plot a box plot for
+distribution of age with respect to each gender along with the information about whether
+they survived or not. (Column names : 'sex' and 'age')
+2. Write observations on the inference from the above statistics.
+
+
+
+
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Load the Titanic dataset
+df = sns.load_dataset('titanic')
+
+# Drop rows with missing 'age' values
+df.dropna(subset=['age'], inplace=True)
+
+# Box plot: distribution of age by gender and survival status
+sns.boxplot(x='sex', y='age', hue='survived', data=df)
+
+# Add title and labels
+plt.title('Age Distribution by Gender and Survival Status')
+plt.xlabel('Gender')
+plt.ylabel('Age')
+
+# Display the plot
+plt.show()
+
+
+
+
+✍️ Observations and Inferences:
+Age Distribution:
+
+Both males and females show a wide range of ages (from infants to 70+ years).
+
+Survival Pattern for Females:
+
+Most females, across all ages, have a higher survival rate.
+
+The median age of surviving females is slightly lower than that of non-surviving females.
+
+Survival Pattern for Males:
+
+Males had a lower survival rate compared to females.
+
+Surviving males tend to be younger on average compared to non-surviving males.
+
+Many young males (kids and teenagers) survived.
+
+Outliers:
+
+There are older survivors (above 60 years), but they are very few in number.
+
+General Pattern:
+
+The famous "Women and Children First" policy seems reflected here:
+Females and younger passengers had better chances of survival.

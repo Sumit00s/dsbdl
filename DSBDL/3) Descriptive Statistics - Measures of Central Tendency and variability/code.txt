@@ -1,0 +1,74 @@
+3) Descriptive Statistics - Measures of Central Tendency and variability
+Perform the following operations on any open-source dataset (e.g., data.csv)
+1. Provide summary statistics (mean, median, minimum, maximum, standard deviation) for
+a dataset (age, income etc.) with numeric variables grouped by one of the qualitative
+(categorical) variable. For example, if your categorical variable is age groups and
+quantitative variable is income, then provide summary statistics of income grouped by the
+age groups. Create a list that contains a numeric value for each response to the categorical
+variable.
+2. Write a Python program to display some basic statistical details like percentile, mean,
+standard deviation etc. of the species of ‘Iris-setosa’, ‘Iris-versicolor’ and ‘Iris-versicolor’ of
+iris.csv dataset.
+
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+df=pd.read_csv("Mall_Customers.csv")
+print(df.head())
+
+print('Mean of numeric columns: \n',df.mean(numeric_only=True))
+print('Mean of age: \n',df['Age'].mean())
+
+print('median  of numeric columns: \n',df.median(numeric_only=True))
+print('medina of age: \n',df['Age'].median())
+
+print('mode of numeric columns: \n',df.mode(numeric_only=True))
+print('mode of age: \n',df['Age'].mode([0]))
+
+print('maximum age: ',df['Age'].max())
+print('minimum age: ',df['Age'].min())
+print('standard deviation of age: ',df['Age'].std())
+
+print('mean age grouped by gender: ',df.groupby('Genre')['Age'].mean())
+
+summary_stats=df.groupby('Age')['Annual Income (k$)'].describe()
+print('summary  statistics of annual income grouped by age: \n',summary_stats)
+
+income_list_by_age=df.groupby('Age')['Annual Income (k$)'].apply(list)
+print('list of annual income by age: ',income_list_by_age)
+
+iris_df = sns.load_dataset('iris')
+print(iris_df.head())
+
+setosa=iris_df[iris_df['species']=='setosa']
+versicolor=iris_df[iris_df['species']=='versicolor']
+virginica=iris_df[iris_df['species']=='virginica']
+
+def calculate_stats(species_data):
+    stats={
+        'mean':species_data.mean(numeric_only=True),
+        'standard_deviation':species_data.std(numeric_only=True),
+        '25th_percentile':species_data.quantile(0.25,numeric_only=True),
+        '50th_percentile':species_data.quantile(0.50,numeric_only=True),
+        '75th_percentile':species_data.quantile(0.75,numeric_only=True),
+    }
+    return stats
+
+setosa_stats=calculate_stats(setosa.drop(columns=['species']))
+versicolor_stats=calculate_stats(versicolor.drop(columns=['species']))
+virginica_stats=calculate_stats(virginica.drop(columns=['species']))
+
+print('statistics of setosa: \n',setosa_stats)
+print('statistics of versicolor: \n',versicolor_stats)
+print('statistics of virginica: \n',virginica_stats)
+
+
+
+
+
+
+
+
+

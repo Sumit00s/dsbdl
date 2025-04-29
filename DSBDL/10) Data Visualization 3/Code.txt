@@ -1,0 +1,44 @@
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Load the Iris dataset
+df = sns.load_dataset('iris')
+df
+
+# Plot histogram for each numeric feature
+df.hist(bins=10, figsize=(10,8))
+plt.suptitle('Histogram of Iris Dataset Features', fontsize=16)
+plt.show()
+
+# Plot boxplots for each numeric feature
+plt.figure(figsize=(10,8))
+for i, column in enumerate(df.columns[:-1], 1):
+    plt.subplot(2, 2, i)
+    sns.boxplot(y=column, data=df)
+    plt.title(f'Boxplot of {column}')
+
+plt.tight_layout()
+plt.show()
+
+
+
+
+
+
+Compare Distributions and Identify Outliers
+📋 Observations:
+Sepal Length: Mostly symmetric distribution, very few or no extreme outliers.
+
+Sepal Width: Slightly skewed distribution, a few outliers present (low and high values).
+
+Petal Length: Bimodal distribution (two peaks) — matches different species classes. No major outliers.
+
+Petal Width: Also shows a bimodal distribution. Few or no strong outliers.
+
+
+Feature	                 Outliers Present?	         Distribution Shape
+sepal_length	          No major outliers	           Symmetric
+sepal_width	              Yes (few outliers)	       Slightly skewed
+petal_length	          No	                       Bimodal
+petal_width	              No	                       Bimodal

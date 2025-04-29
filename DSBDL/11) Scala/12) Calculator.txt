@@ -1,0 +1,44 @@
+// Import Spark Session
+import org.apache.spark.sql.SparkSession
+
+object SimpleCalculator {
+  def main(args: Array[String]): Unit = {
+    
+    // Initialize Spark Session
+    val spark = SparkSession.builder()
+      .appName("Simple Calculator")
+      .master("local[*]")   // Run locally using all cores
+      .getOrCreate()
+
+    // Taking two numbers
+    println("Enter first number: ")
+    val num1 = scala.io.StdIn.readDouble()
+
+    println("Enter second number: ")
+    val num2 = scala.io.StdIn.readDouble()
+
+    println("Choose operation (+, -, *, /): ")
+    val operation = scala.io.StdIn.readLine()
+
+    // Perform operation
+    val result = operation match {
+      case "+" => num1 + num2
+      case "-" => num1 - num2
+      case "*" => num1 * num2
+      case "/" => 
+        if (num2 != 0) num1 / num2
+        else {
+          println("Cannot divide by zero.")
+          Double.NaN
+        }
+      case _ => 
+        println("Invalid operation.")
+        Double.NaN
+    }
+
+    println(s"Result: $result")
+
+    // Stop Spark Session
+    spark.stop()
+  }
+}

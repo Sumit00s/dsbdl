@@ -1,0 +1,54 @@
+8) Data Visualization I
+1. Use the inbuilt dataset 'titanic'. The dataset contains 891 rows and contains information
+about the passengers who boarded the unfortunate Titanic ship. Use the Seaborn library to
+see if we can find any patterns in the data.
+2. Write a code to check how the price of the ticket (column name: 'fare') for each
+passenger is distributed by plotting a histogram.
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load Titanic dataset
+titanic = sns.load_dataset('titanic')
+titanic.head()
+
+# Example 1: Survival rate by gender
+sns.countplot(x='sex', hue='survived', data=titanic)
+plt.title('Survival Count based on Gender')
+plt.show()
+
+
+# Example 2: Class distribution
+sns.countplot(x='class', hue='survived', data=titanic)
+plt.title('Survival Count based on Passenger Class')
+plt.show()
+
+# Example 3: Age distribution with survival
+sns.histplot(data=titanic, x='age', hue='survived', kde=True)
+plt.title('Age Distribution based on Survival')
+plt.show()
+
+# Example 4: Fare vs Class
+sns.boxplot(x='class', y='fare', data=titanic)
+plt.title('Fare by Class')
+plt.show()
+
+# Step 5: Plot histogram of 'fare'
+plt.figure(figsize=(8,5))
+sns.histplot(titanic['fare'], bins=30, kde=True, color='blue')
+plt.title('Distribution of Fare')
+plt.xlabel('Fare')
+plt.ylabel('Number of Passengers')
+plt.show()
+
+# Plot distribution of fare by gender
+
+dataset = sns.load_dataset('titanic')
+
+sns.histplot(data=dataset, x='fare', hue='sex', bins=30, kde=True)
+plt.title('Distribution of Ticket Fare by Gender')
+plt.xlabel('Fare')
+plt.ylabel('Number of Passengers')
+plt.show()

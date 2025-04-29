@@ -1,0 +1,35 @@
+import org.apache.spark.sql.SparkSession
+
+object PrimeNumberChecker {
+
+  // Function to check if a number is prime
+  def isPrime(n: Int): Boolean = {
+    if (n <= 1) return false
+    for (i <- 2 to math.sqrt(n).toInt) {
+      if (n % i == 0) return false
+    }
+    true
+  }
+
+  def main(args: Array[String]): Unit = {
+    // Initialize Spark session
+    val spark = SparkSession.builder
+      .appName("PrimeNumberChecker")
+      .master("local[*]")  // Local mode
+      .getOrCreate()
+
+    // Accept a number from the user
+    println("Enter a number to check if it's prime:")
+    val num = scala.io.StdIn.readInt()
+
+    // Check if the number is prime
+    if (isPrime(num)) {
+      println(s"$num is a prime number.")
+    } else {
+      println(s"$num is not a prime number.")
+    }
+
+    // Stop Spark session
+    spark.stop()
+  }
+}

@@ -1,0 +1,38 @@
+sudo apt update
+sudo apt install default-jdk
+
+java -version
+
+sudo apt install apache-spark
+
+spark-shell
+
+nano CheckNumber.scala
+
+
+import org.apache.spark.sql.SparkSession
+import scala.io.StdIn.readInt
+
+object CheckNumber {
+  def main(args: Array[String]): Unit = {
+    val spark = SparkSession.builder()
+      .appName("CheckNumber")
+      .master("local[*]")
+      .getOrCreate()
+
+    println("Enter a number:")
+    val num = readInt()
+
+    if (num > 0) println("Positive Number")
+    else if (num < 0) println("Negative Number")
+    else println("Zero")
+
+    spark.stop()
+  }
+}
+
+
+
+
+spark-shell -i CheckNumber.scala
+
